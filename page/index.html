@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>前端小白的个人博客</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./js/axios.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="title">我的个人博客 | 技术博客</a>
+            <ul class="menu">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                <li>
+                    <a href="/sitemap.html">地图</a>
+                </li>
+                <li>
+                    <a href="/about.html">关于</a>
+                </li>
+                <li>
+                    <a href="/guestbook.html">留言</a>
+                </li>
+            </ul>
+
+            <div class="search_bar">
+                <input type="text" placeholder="输入关键词查找">
+                <button>搜索</button>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="content_left">
+            <div class="every_day" id="every_day">
+                <span>每日一句</span>
+                <div v-html="getContent"></div>
+            </div>
+            <div class="article_list" id="article_list">
+                <div class="article" v-for="article in articleList">
+                    <a :href="article.link" class="article_title">{{article.title}}</a>
+                    <p class="article_content">{{article.content}}</p>
+                    <div class="article_foot">发布于{{article.data}} | 浏览({{article.views}}) | Tags：{{article.tags}}</div>
+                </div>
+                <div class="page_tool">
+                    <ul>
+                        <li v-for="pageNum in pageNumList" v-on:click="jumpTo(pageNum.page)" :class="{now_page:(pageNum.text == page)}">{{pageNum.text}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content_right">
+            <div class="right_module" id="random_tags">
+                <div class="right_module_head">随机标签云</div>
+                <div class="right_module_content">
+                    <a :href="tag.link" v-for="tag in tags" :style="{color:randomColor(), fontSize:randomFontSize()}">{{tag.text}}</a>
+                </div>
+            </div>
+            <div class="right_module" id="new_hot">
+                <div class="right_module_head">最近热门</div>
+                <div class="right_module_content">
+                    <ul>
+                        <li v-for="temp in titleList">
+                            <a :href="temp.link">{{temp.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right_module" id="new_comments">
+                <div class="right_module_head">最新评论</div>
+                <div class="right_module_content">
+                    <ul>
+                        <li v-for="comment in commentList">
+                            <div>
+                                <span>{{comment.name}}</span>
+                                <span class="pull_right">{{comment.date}}</span>
+                            </div>
+                            <p>{{comment.comment}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right_module">
+                <div class="right_module_head">友情链接</div>
+                <div class="right_module_content">
+                    <ul>
+                        <li>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <ul>
+            <li>C/C++</li>
+            <li>java</li>
+            <li>Linux</li>
+            <li>Mac</li>
+            <li>PC技术</li>
+            <li>PHP</li>
+            <li>Python</li>
+            <li>Raspberry</li>
+            <li>Ubuntu</li>
+            <li>wordpress</li>
+            <li>关于SEO分享经验</li>
+            <li>听听音乐</li>
+            <li>幽默搞笑</li>
+            <li>建站经验</li>
+            <li>新闻资讯</li>
+            <li>模拟飞行</li>
+            <li>片言碎语</li>
+            <li>玩转手机</li>
+            <li>编程基础</li>
+            <li>视频分享</li>
+        </ul>
+        <p>以上都没有</p>
+    </footer>
+    <script src="./js/index.js"></script>
+    <script src="./js/base.js"></script>
+</body>
+
+</html>
