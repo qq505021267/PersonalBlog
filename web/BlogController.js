@@ -6,6 +6,34 @@ var respUtil = require("../util/RespUtil");
 var url = require("url");
 var path = new Map();
 
+function queryBlogByValueCount(request, response) {
+    var params = url.parse(request.url, true).query;
+    blogDao.queryBlogByValueCount(params.value, function (result) {
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    })
+}
+
+path.set("/queryBlogByValueCount", queryBlogByValueCount);
+
+function queryBlogByValue(request, response) {
+    var params = url.parse(request.url, true).query;
+    blogDao.queryBlogByValue(params.value, parseInt(params.page), parseInt(params.pageSize), function (result) {
+        for (var i = 0; i < result.length; i++) {
+            result[i].content = result[i].content.replace(/<img[\w\W]*">/g, "");
+            result[i].content = result[i].content.replace(/<[\w\W]{1,5}>/g, "");
+            result[i].content = result[i].content.substring(0, 300);
+            result[i].ctime = timeUtil.getDate(result[i].ctime);
+        }
+        response.writeHead(200);
+        response.write(respUtil.writeResult("success", "查询成功", result));
+        response.end();
+    })
+}
+
+path.set("/queryBlogByValue", queryBlogByValue);
+
 function queryHotBlog(request, response) {
     blogDao.queryHotBlog(5, function (result) {
         response.writeHead(200);
@@ -29,6 +57,9 @@ path.set("/queryAllBlog", queryAllBlog);
 function queryBlogById(request, response) {
     var params = url.parse(request.url, true).query;
     blogDao.queryBlogById(parseInt(params.blogId), function (result) {
+        for (var i = 0; i < result.length; i ++) {
+            result[i].ctime = timeUtil.getDate(result[i].ctime);
+        }
         response.writeHead(200);
         response.write(respUtil.writeResult("success", "查询成功", result));
         response.end();
@@ -55,6 +86,7 @@ function queryBlogByPage(request, response) {
             result[i].content = result[i].content.replace(/<img[\w\W]*">/g, "");
             result[i].content = result[i].content.replace(/<[\w\W]{1,5}>/g, "");
             result[i].content = result[i].content.substring(0, 300);
+            result[i].ctime = timeUtil.getDate(result[i].ctime);
         }
         response.writeHead(200);
         response.write(respUtil.writeResult("success", "查询成功", result));

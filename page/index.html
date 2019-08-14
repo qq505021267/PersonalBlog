@@ -29,9 +29,9 @@
                 </li>
             </ul>
 
-            <div class="search_bar">
-                <input type="text" placeholder="输入关键词查找">
-                <button>搜索</button>
+            <div class="search_bar" id="search_bar">
+                <input type="text" placeholder="输入关键词查找" v-model="value">
+                <button v-on:click="search()">搜索</button>
             </div>
         </div>
     </header>
@@ -45,7 +45,7 @@
                 <div class="article" v-for="article in articleList">
                     <a :href="article.link" class="article_title">{{article.title}}</a>
                     <p class="article_content">{{article.content}}</p>
-                    <div class="article_foot">发布于{{article.data}} | 浏览({{article.views}}) | Tags：{{article.tags}}</div>
+                    <div class="article_foot">发布于{{article.date}} | 浏览({{article.views}}) | Tags：{{article.tags}}</div>
                 </div>
                 <div class="page_tool">
                     <ul>

@@ -86,3 +86,18 @@ const newComments = new Vue({
         });
     }
 });
+
+const searchBar = new Vue({
+    el: "#search_bar",
+    data: {
+        value: ""
+    },
+    computed: {
+        search () {
+            return () => {
+               location.href = "/?value=" + this.value
+            }
+        }
+    }
+});
+

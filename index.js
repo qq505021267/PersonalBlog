@@ -28,6 +28,8 @@ app.get("/queryNewComments", loader.get("/queryNewComments"));
 
 app.get("/queryBlogByTag", loader.get("/queryBlogByTag"));
 app.get("/queryBlogByTagCount", loader.get("/queryBlogByTagCount"));
+app.get("/queryBlogByValue", loader.get("/queryBlogByValue"));
+app.get("/queryBlogByValueCount", loader.get("/queryBlogByValueCount"));
 
 
 app.listen(globalConfig.port, () => {

@@ -36,13 +36,19 @@ const articleList = new Vue({
                 this.getPage(page, this.pageSize);
             }
         },
-        getPage(page, pageSize) {
+        getPage() {
             return function (page, pageSize) {
 
                 var searchUrlParams = location.search.indexOf("?") > -1 ? location.search.split("?")[1].split("&") : "";
                 var tag = "";
+                var value = "";
                 for (var i = 0; i < searchUrlParams.length; i ++) {
-                    if (searchUrlParams[i].split("=")[0] == "tag") {
+                    if (searchUrlParams[i].split("=")[0] == "tag" || searchUrlParams[i].split("=")[0] == "value") {
+                        try {
+                            value = searchUrlParams[i].split("=")[1]
+                        } catch (e) {
+                            console.log(e)
+                        }
                         try {
                             tag = searchUrlParams[i].split("=")[1]
                         } catch (e) {
@@ -50,8 +56,38 @@ const articleList = new Vue({
                         }
                     }
                 }
+                if (value != "") {
+                    axios({
+                        method: "get",
+                        url: "/queryBlogByValue?page=" + (page - 1) + "&pageSize=" + pageSize + "&value=" + value
+                    }).then( (data) => {
+                        var result = data.data.data;
+                        var list = [];
+                        for (var i = 0; i < result.length; i ++) {
+                            var temp = {};
+                            temp.title = result[i].title;
+                            temp.content = result[i].content;
+                            temp.date = result[i].ctime;
+                            temp.views = result[i].views;
+                            temp.tags = result[i].tags;
+                            temp.id = result[i].id;
+                            temp.link = "/blog_detail.html?blogId=" + result[i].id;
+                            list.push(temp);
+                        }
+                        this.articleList = list;
+                        this.page = page;
+                    }).catch(function (error) {
+                        console.log("请求错误")
+                    });
+                    axios({
+                        method: "get",
+                        url: "/queryBlogByValueCount?value=" + value,
+                    }).then( (data) => {
+                        this.count = data.data.data[0].count;
+                        this.generatePageTool;
+                    })
 
-                if (tag == "") {
+                }else if (tag == "") {
                     axios({
                         method: "get",
                         url: "/queryBlogByPage?page=" + (page - 1) + "&pageSize=" + pageSize

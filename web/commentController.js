@@ -7,6 +7,9 @@ var path = new Map();
 
 function queryNewComments(request, response) {
     commentDao.queryNewComments(5, function (result) {
+        for (var i = 0; i < result.length; i ++) {
+            result[i].ctime = timeUtil.getDate(result[i].ctime);
+        }
         response.writeHead(200);
         response.write(respUtil.writeResult("success", "查询成功", result));
         response.end();
@@ -49,6 +52,9 @@ path.set("/queryRandomCode", queryRandomCode);
 function queryCommentsByBlogId(request, response) {
     var params = url.parse(request.url, true).query;
     commentDao.queryCommentsByBlogId(params.blogId, function (result) {
+        for (var i = 0; i < result.length; i ++) {
+            result[i].ctime = timeUtil.getDate(result[i].ctime);
+        }
         response.writeHead(200);
         response.write(respUtil.writeResult("success", "查询成功", result));
         response.end();

@@ -113,6 +113,37 @@ function queryBlogById(id, success) {
     connection.end();
 }
 
+function queryBlogByValue(value, page, pageSize, success) {
+    var querySql = "select * from blog where content like ? or title like ? order by id desc limit ?, ?;";
+    var params = [("%" + value + "%"), ("%" + value + "%"), page * pageSize, pageSize];
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        }else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
+function queryBlogByValueCount(value, success) {
+    var querySql = "select count(1) as count from blog where content like ? or title like ?;";
+    var params = [("%" + value + "%"), ("%" + value + "%")];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, function (error, result) {
+        if (error == null) {
+            success(result);
+        }else {
+            console.log(error);
+        }
+    });
+    connection.end();
+}
+
 module.exports.insertBlog = insertBlog;
 module.exports.queryBlogByPage = queryBlogByPage;
 module.exports.queryBlogCount = queryBlogCount;
@@ -120,3 +151,5 @@ module.exports.queryBlogById = queryBlogById;
 module.exports.queryAllBlog = queryAllBlog;
 module.exports.addViews = addViews;
 module.exports.queryHotBlog = queryHotBlog;
+module.exports.queryBlogByValue = queryBlogByValue;
+module.exports.queryBlogByValueCount = queryBlogByValueCount;

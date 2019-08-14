@@ -10,29 +10,29 @@
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <a href="/" class="title">我的个人博客 | 技术博客</a>
-            <ul class="menu">
-                <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="/sitemap.html">地图</a>
-                </li>
-                <li>
-                    <a href="/about.html">关于</a>
-                </li>
-                <li>
-                    <a href="/guestbook.html">留言</a>
-                </li>
-            </ul>
+    <div class="container">
+        <a href="/" class="title">我的个人博客 | 技术博客</a>
+        <ul class="menu">
+            <li>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <a href="/sitemap.html">地图</a>
+            </li>
+            <li>
+                <a href="/about.html">关于</a>
+            </li>
+            <li>
+                <a href="/guestbook.html">留言</a>
+            </li>
+        </ul>
 
-            <div class="search_bar">
-                <input type="text" placeholder="输入关键词查找">
-                <button>搜索</button>
-            </div>
+        <div class="search_bar" id="search_bar">
+            <input type="text" placeholder="输入关键词查找" v-model="value">
+            <button v-on:click="search()">搜索</button>
         </div>
-    </header>
+    </div>
+</header>
     <div class="content">
         <div class="content_left">
             <div class="blog" id="blog_detail">
@@ -92,7 +92,7 @@
                         <li v-for="comment in commentList">
                             <div>
                                 <span>{{comment.name}}</span>
-                                <span class="pull_right">{{comment.data}}</span>
+                                <span class="pull_right">{{comment.date}}</span>
                             </div>
                             <p>{{comment.comment}}</p>
                         </li>
@@ -104,44 +104,44 @@
                 <div class="right_module_content">
                     <ul>
                         <li>
-                                <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
                             <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
                         </li>
                         <li>
-                                <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
                             <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
                         </li>
                         <li>
-                                <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
                             <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
                         </li>
                         <li>
-                                <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
                             <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
                         </li>
                         <li>
-                                <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
                             <span>
-                                    <a href="#">挨踢茶馆</a>
-                                </span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
+                            <span>
+                                <a href="#">挨踢茶馆</a>
+                            </span>
                         </li>
                     </ul>
                 </div>
